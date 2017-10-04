@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('magento-rest-api App', () => {
+describe('magento-rest-rest-api App', () => {
   let page: AppPage;
 
   beforeEach(() => {
