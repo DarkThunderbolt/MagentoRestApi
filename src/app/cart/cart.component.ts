@@ -8,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class CartComponent implements OnInit {
 
   constructor() { }
-
+  checkItems() {
+    if (localStorage.getItem('id') === null) {
+      console.log('exist');
+    }
+  }
   ngOnInit() {
+    this.checkItems();
   }
 
 }

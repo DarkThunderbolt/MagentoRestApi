@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class SingleitemComponent implements OnInit {
 
   constructor() { }
-
+  AddtoCart() {
+    localStorage.setItem('item', 'id');
+  }
   ngOnInit() {
   }
 
