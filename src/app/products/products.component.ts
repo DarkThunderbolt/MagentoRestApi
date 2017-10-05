@@ -10,18 +10,26 @@ import { RestApiService } from '../rest-api/rest-api.service';
 export class ProductsComponent implements OnInit {
 
   categories: any;
+  products: any;
   constructor( private apiService: RestApiService ) { }
 
   getCategories() {
     this.apiService.getCategories()
     .subscribe( categories => {
-      console.log(categories);
-      // this.categories = categories;
+      console.log(categories.children_data);
+      this.categories = categories.children_data;
     });
   }
-
+  getAllProducts() {
+    this.apiService.getAllProducts()
+    .subscribe( products => {
+      console.log(products.items);
+      this.products = products.items;
+    });
+  }
   ngOnInit() {
     this.getCategories();
+    this.getAllProducts();
   }
 
 }

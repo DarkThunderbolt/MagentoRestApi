@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RestApiService {
 
-  public url = 'http://zirka-template/rest/V1/';
+  public url = 'http://zirka-template/rest/V1';
 
   constructor(private jsonp: Jsonp, private http: Http) {
     console.log('RestApiService working');
@@ -17,7 +17,7 @@ export class RestApiService {
    *  @returns {Observable<any>} JSON: [id, name, children_data[JSON]]
    */
   public getCategories() {
-    return this.http.get(this.url + 'categories')
+    return this.http.get(this.url + '/categories')
       .map(res => res.json());
   }
 
