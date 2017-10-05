@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="" routerLinkActive="active">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/products" routerLinkActive="active">Products <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-right active">
+        <a class="nav-link" routerLink="/cart" routerLinkActive="active"> Cart <span class="sr-only">(current)</span></a>
+      </li>  
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>
