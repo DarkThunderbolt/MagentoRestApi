@@ -99,7 +99,16 @@ export class RestApiService {
       'Content-Type': 'application/json'
     });
     const options = new RequestOptions({headers: headers});
-    return this.http.post(this.url + 'guest-carts/' + product.sku + '/items', JSON.stringify(product), options)
+    return this.http.post(this.url + 'guest-carts/' + product.quoteId + '/items/', JSON.stringify(product), options)
+      .map(res => res.json());
+  }
+
+  /**
+   * @param   product JSON{itemId, quoteId}
+   * @returns {boolean} true or false
+   */
+  public delProductFromCart(product: any) {
+    return this.http.delete(this.url + 'guest-carts/' + product.quoteId + '/items/' + product.itemId)
       .map(res => res.json());
   }
 }
