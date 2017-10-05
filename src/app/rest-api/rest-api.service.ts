@@ -12,54 +12,94 @@ export class RestApiService {
     console.log('RestApiService working');
   }
 
-  public getCategorys(): any {
+  /**
+   *  return all categories.
+   *  @returns {Observable<any>} JSON: [id, name, children_data[JSON]]
+   */
+  public getCategories() {
     return this.http.get(this.url + 'V1/categories')
       .map(res => res.json());
   }
 
-  public getAllProducts(): any {
+  /**
+   * @returns {Observable<any>} JSON
+   * items[id, sku, name, price, visibility, type_id, created_at, updated_at, weight,
+   * custom_attributes[attribute_code, value]]
+   */
+  public getAllProducts() {
     return this.http.get(this.url + '/products?searchCriteria=""')
       .map(res => res.json());
   }
 
-  public getProductById(sku: string): any {
+  /**
+   * @param   {string} sku
+   * @returns {Observable<any>}   product in json
+   */
+  public getProductById(sku: string) {
     return this.http.get(this.url + '/products/' + sku)
       .map(res => res.json());
   }
 
-  public getProductByCategoryId(categoryId: number): any {
-
-  }
-
-  /// username,password -- return auth token  for  user or guest
-  public postAdminAuth(user = null): any {
-    return this.http.post(this.url + '/integration/admin/token', JSON.stringify(user), new RequestOptions())
+  /**
+   * @param   {number} categoryId
+   * @returns {Observable<any>} array of json {sku}
+   */
+  public getProductsInCategory(categoryId: number) {
+    return this.http.get(this.url + '/categories/' + categoryId + '/products')
       .map(res => res.json());
   }
 
+  /**
+   * @param   {string}  sku of products
+   * @returns {Observable<any>} array of child products in json
+   */
+  public getConfigPorductChild(sku: string) {
+    return this.http.get(this.url + 'configurable-products/' + sku + '/children')
+      .map(res => res.json());
+  }
 
-  public postUserAuth(user = null): any {
+  /**
+   * return auth token  for  user or guest
+   * @param   {any} user: JSON {username, password}
+   * @returns {Observable<any>} token in json
+   */
+  public postAdminAuth(user = null) {
+    return this.http.post(this.url + 'integration/admin/token/', JSON.stringify(user), new RequestOptions())
+      .map(res => res.json());
+  }
+
+  /**
+   * @param   {any} user JSON {username, password}
+   * @returns {Observable<any>} token in json
+   */
+  public postUserAuth(user = null) {
     if (user != null) {
-      return this.http.post(this.url + '/integration/admin/token', JSON.stringify(user), new RequestOptions())
+      return this.http.post(this.url + 'integration/admin/token/', JSON.stringify(user), new RequestOptions())
         .map(res => res.json());
     } else {
-      return this.http.post(this.url + '/integration/customer/token', new RequestOptions())
+      return this.http.post(this.url + 'integration/customer/token/', new RequestOptions())
         .map(res => res.json());
     }
   }
 
+  /**
+   * @returns {Observable<any>} cartId in json
+   */
   public createGuestCart() {
-    return this.http.post(this.url + 'guest-carts', new RequestOptions())
+    return this.http.post(this.url + 'guest-carts/', new RequestOptions())
       .map(res => res.json());
   }
 
-  /// sku, qty, quoteId
-  public addProductToCart(product) {
+  /**
+   * @param   product JSON{sku, qty, quoteId}
+   * @returns {Observable<any>} JSON with cart item
+   */
+  public addProductToCart(product: any) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
     const options = new RequestOptions({headers: headers});
-    return this.http.post(this.url + '/guest-carts/' + product.sku + '/items', JSON.stringify(product), options)
+    return this.http.post(this.url + 'guest-carts/' + product.sku + '/items', JSON.stringify(product), options)
       .map(res => res.json());
   }
 }
