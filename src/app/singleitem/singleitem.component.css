@@ -1,0 +1,12 @@
+.container{
+  text-align: center;
+}
+
+.btn-primary {
+  display: block;
+  margin: 0 auto;
+}
+
+table,table tr, table td{
+  border: 1px solid white;
+}
