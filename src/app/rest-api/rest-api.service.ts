@@ -7,11 +7,9 @@ import 'rxjs/add/operator/map';
 export class RestApiService {
 
 
-  private static readonly baseUrl = 'http://kettynew/';
+  private static readonly baseUrl = 'http://zirka-template/';
   public static readonly apiUrl = RestApiService.baseUrl + 'rest/V1/';
   public  static readonly mediaUrl = RestApiService.baseUrl + '/pub/media/catalog/product/';
-  // kettynew
-  // zirka-template
 
   constructor(private jsonp: Jsonp, private http: Http) {
     console.log('RestApiService working');
