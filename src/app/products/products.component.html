@@ -6,7 +6,7 @@
             Categories
           </a>
         </h5>
-      </div>  
+      </div>
       <div id="collapseOne" style="margin: 0 auto" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
             <ul class="nav">
@@ -31,11 +31,11 @@
               <h4 class="card-title">{{product.name}}</h4>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               <p>Price: {{product.price}}</p>
-              <a routerLink="/single" routerLinkActive="active" class="btn btn-primary">Check Out</a>
+              <a [routerLink]="['/single/', product.sku]" routerLinkActive="active" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
-      </div>        
+      </div>
     </div>
-  </div>  
+  </div>
 </div>
 

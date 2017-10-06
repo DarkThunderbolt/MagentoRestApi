@@ -19,7 +19,7 @@ const appRoutes: Routes = [
     component: AppComponent
   },
   {
-    path: 'single',
+    path: 'single/:productSku',
     component: SingleitemComponent
   },
   {

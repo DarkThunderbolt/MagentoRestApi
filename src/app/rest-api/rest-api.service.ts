@@ -6,7 +6,12 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RestApiService {
 
-  public url = 'http://zirka-template/rest/V1';
+
+  private static readonly baseUrl = 'http://kettynew/';
+  public static readonly apiUrl = RestApiService.baseUrl + 'rest/V1/';
+  public  static readonly mediaUrl = RestApiService.baseUrl + '/pub/media/catalog/product/';
+  // kettynew
+  // zirka-template
 
   constructor(private jsonp: Jsonp, private http: Http) {
     console.log('RestApiService working');
@@ -17,7 +22,7 @@ export class RestApiService {
    *  @returns {Observable<any>} JSON: [id, name, children_data[JSON]]
    */
   public getCategories() {
-    return this.http.get(this.url + '/categories')
+    return this.http.get(RestApiService.apiUrl + 'categories')
       .map(res => res.json());
   }
 
@@ -27,7 +32,7 @@ export class RestApiService {
    * custom_attributes[attribute_code, value]]
    */
   public getAllProducts() {
-    return this.http.get(this.url + '/products?searchCriteria=""')
+    return this.http.get(RestApiService.apiUrl + 'products?searchCriteria=""')
       .map(res => res.json());
   }
 
@@ -36,7 +41,7 @@ export class RestApiService {
    * @returns {Observable<any>}   product in json
    */
   public getProductById(sku: string) {
-    return this.http.get(this.url + '/products/' + sku)
+    return this.http.get(RestApiService.apiUrl + 'products/' + sku)
       .map(res => res.json());
   }
 
@@ -45,7 +50,7 @@ export class RestApiService {
    * @returns {Observable<any>} array of json {sku}
    */
   public getProductsInCategory(categoryId: number) {
-    return this.http.get(this.url + '/categories/' + categoryId + '/products')
+    return this.http.get(RestApiService.apiUrl + 'categories/' + categoryId + '/products')
       .map(res => res.json());
   }
 
@@ -54,7 +59,7 @@ export class RestApiService {
    * @returns {Observable<any>} array of child products in json
    */
   public getConfigPorductChild(sku: string) {
-    return this.http.get(this.url + 'configurable-products/' + sku + '/children')
+    return this.http.get(RestApiService.apiUrl + 'configurable-products/' + sku + '/children')
       .map(res => res.json());
   }
 
@@ -64,7 +69,7 @@ export class RestApiService {
    * @returns {Observable<any>} token in json
    */
   public postAdminAuth(user = null) {
-    return this.http.post(this.url + 'integration/admin/token/', JSON.stringify(user), new RequestOptions())
+    return this.http.post(RestApiService.apiUrl + 'integration/admin/token/', JSON.stringify(user), new RequestOptions())
       .map(res => res.json());
   }
 
@@ -74,10 +79,10 @@ export class RestApiService {
    */
   public postUserAuth(user = null) {
     if (user != null) {
-      return this.http.post(this.url + 'integration/admin/token/', JSON.stringify(user), new RequestOptions())
+      return this.http.post(RestApiService.apiUrl + 'integration/admin/token/', JSON.stringify(user), new RequestOptions())
         .map(res => res.json());
     } else {
-      return this.http.post(this.url + 'integration/customer/token/', new RequestOptions())
+      return this.http.post(RestApiService.apiUrl + 'integration/customer/token/', new RequestOptions())
         .map(res => res.json());
     }
   }
@@ -86,7 +91,7 @@ export class RestApiService {
    * @returns {Observable<any>} cartId in json
    */
   public createGuestCart() {
-    return this.http.post(this.url + 'guest-carts/', new RequestOptions())
+    return this.http.post(RestApiService.apiUrl + 'guest-carts/', new RequestOptions())
       .map(res => res.json());
   }
 
@@ -99,7 +104,7 @@ export class RestApiService {
       'Content-Type': 'application/json'
     });
     const options = new RequestOptions({headers: headers});
-    return this.http.post(this.url + 'guest-carts/' + product.quoteId + '/items/', JSON.stringify(product), options)
+    return this.http.post(RestApiService.apiUrl + 'guest-carts/' + product.quoteId + '/items/', JSON.stringify(product), options)
       .map(res => res.json());
   }
 
@@ -108,7 +113,7 @@ export class RestApiService {
    * @returns {boolean} true or false
    */
   public delProductFromCart(product: any) {
-    return this.http.delete(this.url + 'guest-carts/' + product.quoteId + '/items/' + product.itemId)
+    return this.http.delete(RestApiService.apiUrl + 'guest-carts/' + product.quoteId + '/items/' + product.itemId)
       .map(res => res.json());
   }
 }
